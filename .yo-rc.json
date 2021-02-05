@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "namespace": "MyEnterpriseBlazor",
+    "applicationType": "monolith",
+    "promptValues": {
+      "nativeLanguage": "en"
+    },
+    "databaseType": "mssql",
+    "authenticationType": "jwt",
+    "serverPort": "5000",
+    "prodDatabaseType": "mysql",
+    "jhipsterVersion": "6.10.5",
+    "baseName": "MyEnterpriseBlazor",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "Blazor",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1612560476830,
+    "testFrameworks": ["protractor"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-dotnetcore",
+        "version": "2.1.0"
+      }
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en"],
+    "blueprints": [
+      {
+        "name": "generator-jhipster-dotnetcore",
+        "version": "2.1.0"
+      }
+    ]
+  }
+}

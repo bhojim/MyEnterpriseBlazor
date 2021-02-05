@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="_Imports.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture"  />
+    <PackageReference Include="bunit"  />
+    <PackageReference Include="FluentAssertions"  />
+    <PackageReference Include="Microsoft.AspNetCore.Components"  />
+    <PackageReference Include="Microsoft.NET.Test.Sdk"  />
+    <PackageReference Include="Moq"  />
+    <PackageReference Include="xunit"  />
+    <PackageReference Include="xunit.runner.visualstudio" >
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\client\MyEnterpriseBlazor.Client\MyEnterpriseBlazor.Client.csproj" />
+  </ItemGroup>
+
+</Project>
