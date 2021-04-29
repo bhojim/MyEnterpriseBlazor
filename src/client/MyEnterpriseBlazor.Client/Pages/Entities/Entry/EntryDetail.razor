@@ -1,0 +1,61 @@
+@page "/entry/{Id:int}/view"
+@using Microsoft.AspNetCore.Authorization
+@namespace MyEnterpriseBlazor.Client.Pages.Entities.Entry
+
+@attribute [Authorize(Roles = "ROLE_USER")]
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        @if (Entry != null && Entry.Id != 0)
+        {
+            <div>
+                <h2><span>Entry</span>@Entry.Id</h2>
+
+                <hr>
+
+                @*<jhi-alert-error></jhi-alert-error>*@
+
+                <dl class="row-md jh-entity-details">
+                    <dt><span>Title</span></dt>
+                    <dd>
+                        <span>@Entry.Title</span>
+                    </dd>
+                    <dt><span>Content</span></dt>
+                    <dd>
+                        <span>@Entry.Content</span>
+                    </dd>
+                    <dt><span>Date</span></dt>
+                    <dd>
+                        <span>@Entry.Date</span>
+                    </dd>
+                    <dt><span>Blog</span></dt>
+                    <dd>
+                        @if (Entry.BlogId != 0)
+                        {
+                            <div>
+                                <a href="/blog/@Entry.Id/view">@Entry.BlogId</a>
+                            </div>
+                        }
+                    </dd>
+                    <dt><span>Tag</span></dt>
+                    <dd>
+                        @foreach (var tag in Entry.Tags){
+                            <span>
+                                <a href="/tag/@tag.Id/view">@tag.Id</a>
+                                @if (tag != Entry.Tags.Last()) { <span>, </span>}
+                            </span>
+                        }
+                    </dd>
+                </dl>
+
+                <button @onclick="Back" class="btn btn-info">
+                    <Icon Name='"fa-arrow-left"' />&nbsp;<span>Back</span>
+                </button>
+
+                <a href="/entry/@Entry.Id/edit" class="btn btn-primary">
+                    <Icon Name='"fa-pencil-alt"' />&nbsp;<span>Edit</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>

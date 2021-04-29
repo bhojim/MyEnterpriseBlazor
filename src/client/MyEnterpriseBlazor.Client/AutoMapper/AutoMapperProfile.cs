@@ -21,6 +21,9 @@ namespace MyEnterpriseBlazor.Client.AutoMapper
             CreateMap<ManagedUserDto, UserSaveModel>().ReverseMap();
             CreateMap<LoginDto, LoginModel>().ReverseMap();
 
+            CreateMap<BlogModel, BlogDto>().ReverseMap();
+            CreateMap<EntryModel, EntryDto>().ReverseMap();
+            CreateMap<TagModel, TagDto>().ReverseMap();
             // jhipster-needle-add-dto-model-mapping - JHipster will add dto to model and model to dto mapping
         }
     }

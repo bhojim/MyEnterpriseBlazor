@@ -2,7 +2,7 @@ using System;
 using MyEnterpriseBlazor.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +17,8 @@ namespace MyEnterpriseBlazor.Configuration
 
             var connection = configuration.GetConnectionString("AppDbContext");
 
-            services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection));
+            //services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlite("Data Source=MyEnterpriseBlazor.db"));
 
             services.AddScoped<DbContext>(provider => provider.GetService<ApplicationDatabaseContext>());
 

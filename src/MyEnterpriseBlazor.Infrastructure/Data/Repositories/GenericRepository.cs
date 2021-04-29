@@ -110,7 +110,7 @@ namespace MyEnterpriseBlazor.Infrastructure.Data.Repositories
             return fluentRepository;
         }
 
-        protected async Task RemoveManyToManyRelationship(string joinEntityName, string ownerIdKey, string ownedIdKey, long ownerEntityId, List<long> idsToIgnore)
+        protected async Task RemoveManyToManyRelationship(string joinEntityName, string ownerIdKey, string ownedIdKey, int ownerEntityId, List<int> idsToIgnore)
         {
             DbSet<Dictionary<string, object>> dbset = _context.Set<Dictionary<string, object>>(joinEntityName);
 

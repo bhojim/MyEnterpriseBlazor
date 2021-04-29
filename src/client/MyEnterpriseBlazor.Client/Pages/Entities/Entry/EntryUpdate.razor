@@ -1,0 +1,81 @@
+@page "/entry/new"
+@page "/entry/{Id:int}/edit"
+@using Microsoft.AspNetCore.Authorization
+@namespace MyEnterpriseBlazor.Client.Pages.Entities.Entry
+
+@attribute [Authorize(Roles = "ROLE_USER")]
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <EditForm Model="@EntryModel" OnValidSubmit="@Save">
+            <h2 id="jhi-entry-heading">Create or edit a Entry</h2>
+            <div>
+                @*
+                    TODO ADD ERROR
+                    <jhi-alert-error></jhi-alert-error>
+                *@
+
+                @if (Id != 0)
+                {
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" readonly @bind-value="@EntryModel.Id" />
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                            @bind-value="@EntryModel.Title" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_content">Content</label>
+                    <input type="text" class="form-control" name="content" id="field_content"
+                            @bind-value="@EntryModel.Content" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_date">Date</label>
+                    <input type="text" class="form-control" name="date" id="field_date"
+                            @bind-value="@EntryModel.Date" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_blog">Blogs</label>
+                    <select class="form-control" id="field_blog" name="blog" @bind="@BlogId">
+                        <option value="0"></option>
+                        @foreach (var blog in BlogIds)
+                        {
+                            if (Id != 0 && blog == EntryModel?.BlogId)
+                            {
+                                <option selected="selected">@blog</option>
+                            }
+                            else
+                            {
+                                <option>@blog</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tag">Tags</label>
+                    <Select  class="form-control" name="tag"  TValue="int" @bind-SelectedValues="SelectedTags" Multiple="true">
+                        @foreach (var tag in TagIds)
+                        {
+                            <SelectItem TValue="int" Value="@tag">@tag</SelectItem>
+                        }
+                    </Select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" @onclick="Back">
+                    <Icon Name='"fa-ban"' />&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" class="btn btn-primary">
+                    <Icon Name='"fa-save"' />&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>

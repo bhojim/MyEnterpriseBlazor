@@ -1,0 +1,67 @@
+@page "/blog/new"
+@page "/blog/{Id:int}/edit"
+@using Microsoft.AspNetCore.Authorization
+@namespace MyEnterpriseBlazor.Client.Pages.Entities.Blog
+
+@attribute [Authorize(Roles = "ROLE_USER")]
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <EditForm Model="@BlogModel" OnValidSubmit="@Save">
+            <h2 id="jhi-blog-heading">Create or edit a Blog</h2>
+            <div>
+                @*
+                    TODO ADD ERROR
+                    <jhi-alert-error></jhi-alert-error>
+                *@
+
+                @if (Id != 0)
+                {
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" readonly @bind-value="@BlogModel.Id" />
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                            @bind-value="@BlogModel.Name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_handle">Handle</label>
+                    <input type="text" class="form-control" name="handle" id="field_handle"
+                            @bind-value="@BlogModel.Handle" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">Users</label>
+                    <select class="form-control" id="field_user" name="user" @bind="@UserId">
+                        <option value="0"></option>
+                        @foreach (var user in UserIds)
+                        {
+                            if (Id != 0 && user == BlogModel?.UserId)
+                            {
+                                <option selected="selected">@user</option>
+                            }
+                            else
+                            {
+                                <option>@user</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" @onclick="Back">
+                    <Icon Name='"fa-ban"' />&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" class="btn btn-primary">
+                    <Icon Name='"fa-save"' />&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>

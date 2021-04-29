@@ -1,0 +1,48 @@
+@page "/blog/{Id:int}/view"
+@using Microsoft.AspNetCore.Authorization
+@namespace MyEnterpriseBlazor.Client.Pages.Entities.Blog
+
+@attribute [Authorize(Roles = "ROLE_USER")]
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        @if (Blog != null && Blog.Id != 0)
+        {
+            <div>
+                <h2><span>Blog</span>@Blog.Id</h2>
+
+                <hr>
+
+                @*<jhi-alert-error></jhi-alert-error>*@
+
+                <dl class="row-md jh-entity-details">
+                    <dt><span>Name</span></dt>
+                    <dd>
+                        <span>@Blog.Name</span>
+                    </dd>
+                    <dt><span>Handle</span></dt>
+                    <dd>
+                        <span>@Blog.Handle</span>
+                    </dd>
+                    <dt><span>User</span></dt>
+                    <dd>
+                        @if (Blog.UserId != string.Empty)
+                        {
+                            <div>
+                                <span>@Blog.UserId</span>
+                            </div>
+                        }
+                    </dd>
+                </dl>
+
+                <button @onclick="Back" class="btn btn-info">
+                    <Icon Name='"fa-arrow-left"' />&nbsp;<span>Back</span>
+                </button>
+
+                <a href="/blog/@Blog.Id/edit" class="btn btn-primary">
+                    <Icon Name='"fa-pencil-alt"' />&nbsp;<span>Edit</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>

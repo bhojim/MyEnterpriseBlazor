@@ -1,0 +1,91 @@
+@page "/tag"
+@using Microsoft.AspNetCore.Authorization
+@using MyEnterpriseBlazor.Client.Shared.Components
+@namespace MyEnterpriseBlazor.Client.Pages.Entities.Tag
+
+@attribute [Authorize(Roles = "ROLE_USER")]
+
+<div>
+    <h2 id="page-heading">
+        <span>Tags</span>
+
+        <a id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tag" href="/tag/new">
+            <Icon Name='"fa-plus"' />
+            <span class="hidden-sm-down">
+                Create a new Tag
+            </span>
+        </a>
+    </h2>
+
+    @*<jhi-alert-error></jhi-alert-error>
+            TODO ADD ALERT
+        <jhi-alert></jhi-alert>*@
+        <AlertError></AlertError>
+
+
+    @* TODO ADD QUERY SEARCH BAR
+            <div class="row">
+            <div class="col-sm-12">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group w-100 mt-3">
+                        <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                        <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                            <fa-icon icon="search"></fa-icon>
+                        </button>
+                        <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+                            <fa-icon icon="trash-alt"></fa-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>*@
+
+
+    @if (Tags.Count == 0)
+    {
+        <div class="alert alert-warning" id="no-result">
+            <span>No Tags found</span>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive" id="entities">
+            <table class="table table-striped" aria-describedby="page-heading">
+                <thead>
+                    <tr>
+                        <th scope="col"><span>ID</span></th>
+                        <th scope="col"><span>Name</span></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tag in Tags)
+                    {
+                        <tr>
+                            <td><a href="/tag/@tag.Id/view">@tag.Id</a></td>
+                            <td>@tag.Name</td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <a href="/tag/@tag.Id/view" class="btn btn-info btn-sm">
+                                        <Icon Name='"fa-eye"'/>
+                                        <span class="d-none d-md-inline">View</span>
+                                    </a>
+
+                                    <a href="/tag/@tag.Id/edit" class="btn btn-primary btn-sm">
+                                        <Icon Name='"fa-pencil-alt"'/>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </a>
+
+                                    <button @onclick="() => Delete(tag.Id)" class="btn btn-danger btn-sm">
+                                        <Icon Name='"fa-times"'/>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

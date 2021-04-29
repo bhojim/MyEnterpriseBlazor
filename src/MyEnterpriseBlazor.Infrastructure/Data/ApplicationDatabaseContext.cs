@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -26,6 +27,10 @@ namespace MyEnterpriseBlazor.Infrastructure.Data
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Entry> Entries { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -61,6 +66,15 @@ namespace MyEnterpriseBlazor.Infrastructure.Data
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Entry>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Entries)
+                .UsingEntity<Dictionary<string, object>>(
+                    "EntryTags",
+                    x => x.HasOne<Tag>().WithMany(),
+                    x => x.HasOne<Entry>().WithMany());
+
         }
 
         /// <summary>

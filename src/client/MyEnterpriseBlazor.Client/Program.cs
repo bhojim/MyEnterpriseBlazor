@@ -12,6 +12,9 @@ using MyEnterpriseBlazor.Client.Pages.Utils;
 using MyEnterpriseBlazor.Client.Services;
 using MyEnterpriseBlazor.Client.Services.AccountServices;
 using MyEnterpriseBlazor.Client.Services.EntityServices;
+using MyEnterpriseBlazor.Client.Services.EntityServices.Blog;
+using MyEnterpriseBlazor.Client.Services.EntityServices.Entry;
+using MyEnterpriseBlazor.Client.Services.EntityServices.Tag;
 // jhipster-needle-add-using-for-services - JHipster will add using services
 using MyEnterpriseBlazor.Client.Services.EntityServices.User;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -48,13 +51,18 @@ namespace MyEnterpriseBlazor.Client
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IRegisterService, RegisterService>();
 
+            builder.Services.AddSingleton<IBlogService, BlogService>();
+            builder.Services.AddSingleton<IEntryService, EntryService>();
+            builder.Services.AddSingleton<ITagService, TagService>();
             // jhipster-needle-add-services-in-di - JHipster will add services in DI
 
             builder.Services.AddHttpClientInterceptor();
             builder.Services.AddTransient(sp => new HttpClient
             {
-                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-            }.EnableIntercept(sp));
+                //BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+                BaseAddress = new Uri("https://localhost:44338/")
+                //BaseAddress = new Uri("http://www.dotnetcomp.com/JHipster/")
+            }.EnableIntercept(sp)); ;
 
             builder.Services.AddAuthorizationCore();
 
